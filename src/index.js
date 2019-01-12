@@ -34,24 +34,16 @@ const itunesAPI = {
         trackViewUrl,
         primaryGenreName,
       } = item;
+      const key = item.kind === undefined ? item.wrapperType : item.kind;
 
-      if (item.kind === undefined) {
-        cat[item.wrapperType] = cat[item.wrapperType] || [];
-        cat[item.wrapperType].push({
-          trackId,
-          artworkUrl100,
-          trackViewUrl,
-          primaryGenreName,
-        })
-      } else {
-        cat[item.kind] = cat[item.kind] || [];
-        cat[item.kind].push({
-          trackId,
-          artworkUrl100,
-          trackViewUrl,
-          primaryGenreName,
-        });
-      }
+      cat[key] = cat[key] || [];
+      cat[key].push({
+        trackId,
+        artworkUrl100,
+        trackViewUrl,
+        primaryGenreName,
+      });
+
       return cat;
     }, {});
 
