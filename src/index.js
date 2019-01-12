@@ -26,6 +26,37 @@ const itunesAPI = {
       return catalog;
     });
   },
+  processCatalog: (catalog) => {
+    const result = catalog.reduce((cat, item) => {
+      const {
+        trackId,
+        artworkUrl100,
+        trackViewUrl,
+        primaryGenreName,
+      } = item;
+
+      if (item.kind === undefined) {
+        cat[item.wrapperType] = cat[item.wrapperType] || [];
+        cat[item.wrapperType].push({
+          trackId,
+          artworkUrl100,
+          trackViewUrl,
+          primaryGenreName,
+        })
+      } else {
+        cat[item.kind] = cat[item.kind] || [];
+        cat[item.kind].push({
+          trackId,
+          artworkUrl100,
+          trackViewUrl,
+          primaryGenreName,
+        });
+      }
+      return cat;
+    }, {});
+
+    return result;
+  }
 }
 
 router.get('/search', function(req, response) {
@@ -45,7 +76,8 @@ router.get('/search', function(req, response) {
 
   itunesAPI
     .getData(term, types, catalog)
-    .then(data => response.send(data));
+    .then(itunesAPI.processCatalog)
+    .then(processedCatalog => response.send(processedCatalog));
 });
 
 app.listen(port);
