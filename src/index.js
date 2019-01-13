@@ -1,10 +1,13 @@
 const express = require('express');
+const cors = require('cors');
 const request = require('request-promise');
+
 const app = express();
 const router = express.Router();
 const port = 4000;
 const endpoint = 'https://itunes.apple.com/search?term=';
 
+app.use(cors());
 app.use('/api', router);
 
 const itunesAPI = {
@@ -30,6 +33,7 @@ const itunesAPI = {
     const result = catalog.reduce((cat, item) => {
       const {
         trackId,
+        trackName,
         artworkUrl100,
         trackViewUrl,
         primaryGenreName,
@@ -39,6 +43,7 @@ const itunesAPI = {
       cat[key] = cat[key] || [];
       cat[key].push({
         trackId,
+        trackName,
         artworkUrl100,
         trackViewUrl,
         primaryGenreName,
