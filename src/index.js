@@ -37,11 +37,13 @@ const itunesAPI = {
         artworkUrl100,
         trackViewUrl,
         primaryGenreName,
+        kind,
       } = item;
       const key = item.kind === undefined ? item.wrapperType : item.kind;
 
       cat[key] = cat[key] || [];
       cat[key].push({
+        kind,
         trackId,
         trackName,
         artworkUrl100,
