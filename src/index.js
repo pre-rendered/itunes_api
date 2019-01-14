@@ -47,6 +47,7 @@ const itunesAPI = {
         artworkUrl100,
         trackViewUrl,
         primaryGenreName,
+        isFavorite: false,
       });
 
       return cat;
