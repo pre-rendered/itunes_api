@@ -32,6 +32,7 @@ const itunesAPI = {
   processCatalog: (catalog) => {
     const result = catalog.reduce((cat, item) => {
       const {
+        artistName,
         trackId,
         trackName,
         artworkUrl100,
@@ -43,6 +44,7 @@ const itunesAPI = {
 
       cat[key] = cat[key] || [];
       cat[key].push({
+        artistName,
         kind,
         trackId,
         trackName,
